@@ -18,11 +18,8 @@ products.createOrReplaceTempView("products")
 categories.createOrReplaceTempView("categories")
 categories_of_products.createOrReplaceTempView("product_categories")
 
-results = spark.sql("""
-    SELECT product_name, category_name
-    FROM products
-    LEFT JOIN product_categories ON products.productId = product_categories.productId
-    LEFT JOIN categories c ON product_categories.categoryId = categories.categoryId
-""")
+results = spark.sql("SELECT product_name, category_name FROM products \
+                    LEFT JOIN product_categories ON products.product_id = product_categories.product_id \
+                    LEFT JOIN categories c ON product_categories.category_id = categories.category_id")
 
 results.show()
