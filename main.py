@@ -2,7 +2,7 @@ from pyspark.sql import SparkSession
 
 
 class ProductData:
-    def __init__(self, products_data=(), categories_data=(), categories_of_products_data=()):
+    def __init__(self, products_data, categories_data, categories_of_products_data):
         self.spark = SparkSession.builder.appName("ProductsData").getOrCreate()
 
         products = self.spark.createDataFrame(products_data)
@@ -15,7 +15,7 @@ class ProductData:
 
     def get_categories_of_products(self):
         results = self.spark.sql("SELECT product_name, category_name FROM products \
-                            LEFT JOIN product_categories ON products.product_id = product_categories.product_id \
-                            LEFT JOIN categories c ON product_categories.category_id = categories.category_id")
+                        LEFT JOIN categories_of_products ON products.product_id = categories_of_products.product_id \
+                        LEFT JOIN categories ON categories_of_products.category_id = categories.category_id")
 
         results.show()
