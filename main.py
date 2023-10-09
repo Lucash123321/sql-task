@@ -19,3 +19,7 @@ class ProductData:
                         LEFT JOIN categories ON categories_of_products.category_id = categories.category_id")
 
         results.show()
+
+
+if __name__ == '__main__':
+    pass
